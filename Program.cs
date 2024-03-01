@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using TopEdgeDemoProject.Data;
 using TopEdgeDemoProject.Repository;
 using TopEdgeDemoProject.Repository.Interfaces;
+using TopEdgeDemoProject.Services;
 
 namespace TopEdgeDemoProject
 {
@@ -11,14 +12,16 @@ namespace TopEdgeDemoProject
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IScrapRepository, ScrapRepository>();
+            builder.Services.AddScoped<IScrapperService, ScrapperService>();
+
             builder.Services.AddDbContext<ScrapingDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("TopEdgeConnectionString"));
             });
 
-            builder.Services.AddScoped<IScrapRepository, ScrapRepository>();
+            // Add services to the container.
+            builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
 

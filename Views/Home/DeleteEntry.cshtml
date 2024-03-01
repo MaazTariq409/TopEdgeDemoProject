@@ -1,0 +1,36 @@
+﻿@model ScrapData
+
+<form method="post" asp-action="DeleteEntry">
+    <div class=" p-3 mt-4">
+        <div class="row pb-3">
+            <h1 class="text-primary">Delete Entry</h1>
+            <hr />
+        </div>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <td>Image</td>
+                    <td>Name</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="col-3">
+                        <img src="@Html.Raw(Model.ImageUrl)" class="img-fluid">
+                    </td>
+                    <td>
+                        <h3>@Html.DisplayName(Model.Name)</h3>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div>
+            <input type="hidden" asp-for="Id" />
+            <button class="btn btn-danger btn-lenght" type="submit">Delete</button>
+            <a class="btn btn-primary" asp-controller="Home" asp-action="Index">Back To List</a>
+        </div>
+    </div>
+
+</form>

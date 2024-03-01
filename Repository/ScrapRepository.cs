@@ -44,6 +44,7 @@ namespace TopEdgeDemoProject.Repository
             {
                 Entity.Name = data.Name;
                 Entity.ImageUrl = data.ImageUrl;
+                Entity.baseUrl = data.baseUrl;
 
                 _context.ScrapData.Add(Entity);
                 _context.SaveChanges();
@@ -58,17 +59,19 @@ namespace TopEdgeDemoProject.Repository
         {
             try
             {
-                var data = _context.ScrapData.Where(x => x.Id == id);
-                _context.Remove(data);
-                _context.SaveChanges();
+                var data = _context.ScrapData.FirstOrDefault(x => x.Id == id);
+                if (data != null)   
+                {
+                    _context.ScrapData.Remove(data);
+                    _context.SaveChanges();
+                }
             }
             catch (Exception ex)
             {
-
                 throw new Exception("Failed to delete Scraped Data", ex);
             }
-            throw new NotImplementedException();
         }
+
 
         public void UpdateScrapData(ScrapDataUpdateDto data)
         {
